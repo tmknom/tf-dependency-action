@@ -56,9 +56,19 @@ runs:
         echo "::endgroup::"
       shell: bash
 
+    - name: Retrieve latest tfmod version
+      id: latest
+      run: |
+        echo "::group::Retrieve latest tfmod version"
+        set -x
+        version="$(grep tfmod <"${GITHUB_ACTION_PATH}/go.mod" | cut -d ' ' -f 3)"
+        echo "version=${version}" >> "${GITHUB_OUTPUT}"
+        echo "::endgroup::"
+      shell: bash
+
     - name: Install tfmod
       env:
-        VERSION: v0.2.2
+        VERSION: ${{ steps.latest.outputs.version }}
         BASE_URL: https://github.com/tmknom/tfmod/releases/download
       run: |
         echo "::group::Install tfmod"
