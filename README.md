@@ -28,8 +28,8 @@ making it easier to manage changes and understand their impacts.
 
 | Name | Description | Default | Required |
 | :--- | :---------- | :------ | :------: |
-| modules | Paths of files or directories that might be Terraform modules. | n/a | yes |
 | base-dir | The base directory that contains the state directories and module directories. | `${{ github.workspace }}` | no |
+| modules | Paths of files or directories that might be Terraform modules. | n/a | no |
 
 ## Outputs
 
