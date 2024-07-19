@@ -1,30 +1,41 @@
-# template-composite-action
+# tf-dependency-action
 
-Template repository for Composite Action.
+Identify the Terraform state directories that use the specified modules.
 
 <!-- actdocs start -->
 
 ## Description
 
-Template repository for creating Composite Action with GitHub Actions.
+This action discovers the Terraform state directories that use the specified local modules.
+A "state directory" is where you run `terraform plan` or `terraform apply`.
+It usually contains the `terraform.tfstate` file.
+
+For example, if you modify a Terraform local module, you can see which state directories are affected.
+With this action, you can easily identify relationships in your Terraform configurations,
+making it easier to manage changes and understand their impacts.
 
 ## Usage
 
-Write usage for your Composite Action.
-
 ```yaml
   steps:
-    - name: Template
-      uses: tmknom/template-composite-action@v0
+    - name: Tf dependency
+      uses: tmknom/tf-dependency-action@v0
+      with:
+        modules: module/foo,module/bar
 ```
 
 ## Inputs
 
-N/A
+| Name | Description | Default | Required |
+| :--- | :---------- | :------ | :------: |
+| modules | Paths of files or directories that might be Terraform modules. | n/a | yes |
+| base-dir | The base directory that contains the state directories and module directories. | `${{ github.workspace }}` | no |
 
 ## Outputs
 
-N/A
+| Name | Description |
+| :--- | :---------- |
+| dirs | The state directories that use the specified modules. |
 
 <!-- actdocs end -->
 
@@ -32,13 +43,17 @@ N/A
 
 N/A
 
+### Requirements
+
+- [Terraform](https://www.terraform.io/)
+
 ## FAQ
 
 N/A
 
 ## Related projects
 
-N/A
+- [tfmod](https://github.com/tmknom/tfmod): Explore the dependencies and dependents for Terraform.
 
 ## Release notes
 
@@ -48,4 +63,4 @@ See [GitHub Releases][releases].
 
 Apache 2 Licensed. See [LICENSE](LICENSE) for full details.
 
-[releases]: https://github.com/tmknom/template-composite-action/releases
+[releases]: https://github.com/tmknom/tf-dependency-action/releases
