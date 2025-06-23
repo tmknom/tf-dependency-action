@@ -23,7 +23,9 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: tmknom/checkout-action@v1
+        uses: tmknom/secure-checkout-action@v1
+        with:
+          persist-credentials: true
 
       - name: Setup
         run: |
@@ -48,6 +50,9 @@ jobs:
           }
           EOF
 
+      - name: Setup Terraform
+        uses: tmknom/setup-terraform-action@4eaa75f79fbd732a98d5bcc2d47e7271b8a29c66 # v0.6.4
+
       - name: Exercise
         id: exercise
         uses: ./
@@ -69,9 +74,10 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: tmknom/checkout-action@v1
+        uses: tmknom/secure-checkout-action@v1
         with:
           fetch-depth: 0
+          persist-credentials: true
 
       - name: Git Config
         uses: tmknom/git-config-action@970621c4819d5a601bbac4a2bcf6f5f80d92a2e6 # v0.2.0
@@ -102,6 +108,9 @@ jobs:
           git switch -c "test/${GITHUB_JOB}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git add .
           git commit -m "test commit"
+
+      - name: Setup Terraform
+        uses: tmknom/setup-terraform-action@4eaa75f79fbd732a98d5bcc2d47e7271b8a29c66 # v0.6.4
 
       - name: Exercise
         id: exercise
